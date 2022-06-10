@@ -12,6 +12,8 @@ namespace BackToBinding.Data
             builder.Indent(indent);
             builder.Append("let ");
             builder.Append(Name);
+            builder.Append(": ");
+            builder.Append(BackType.Resolve(Type));
             builder.Append(";");
             builder.Line();
         }
