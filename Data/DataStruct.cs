@@ -6,12 +6,14 @@ namespace BackToBinding.Data
 {
     public class DataStruct : IData
     {
-        public string Name = "";
+        public string Name { get; set; }
 
-        public List<TypeField> Fields = new();
+        public List<TypeField> Fields { get; set; }
 
         public void AsText(int indent, StringBuilder builder)
         {
+            BackType.Register(Name);
+
             builder.Indent(indent);
             builder.Append("struct " + Name + " {");
             builder.Line();

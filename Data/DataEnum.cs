@@ -12,6 +12,8 @@ namespace BackToBinding.Data
 
         public void AsText(int indent, StringBuilder builder)
         {
+            BackType.Register(Name);
+
             builder.Indent(indent);
             builder.Append("enum " + Name + " {");
             builder.Line();

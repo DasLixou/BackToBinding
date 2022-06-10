@@ -13,8 +13,11 @@ namespace BackToBinding.Data.Struct
             builder.Indent(indent);
             builder.Append("let ");
             builder.Append(Name);
-            builder.Append(": ");
-            builder.Append(BackType.Resolve(Type));
+            if(Type.Trim() != "")
+            {
+                builder.Append(": ");
+                builder.Append(BackType.Resolve(Type));
+            }
             builder.Append(";");
             builder.Line();
         }

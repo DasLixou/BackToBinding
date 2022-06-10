@@ -1,7 +1,7 @@
 ﻿using BackToBinding;
+using BackToBinding.Utils;
 using CommandLine;
 using Newtonsoft.Json;
-using System.Text;
 
 public static class Program
 {
@@ -20,6 +20,12 @@ public static class Program
         Directory.CreateDirectory(ctx.OutputDirectory);
 
         target.Translate(ctx.OutputDirectory);
+
+        foreach (var type in BackType.NotResolvedTypes)
+        {
+            Console.WriteLine($"[WARNING] Couldn't find type {type} - Creating empty struct..");
+            // TODO: Resolving Macros for types and create empty structs
+        }
     }
 }
 
