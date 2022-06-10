@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using BackToBinding.Utils;
+using System.Text;
 
-namespace BackToBinding.Data
+namespace BackToBinding.Data.Struct
 {
     public class TypeField : IData
     {

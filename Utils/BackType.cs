@@ -1,4 +1,4 @@
-﻿namespace BackToBinding.Data
+﻿namespace BackToBinding.Utils
 {
     public static class BackType
     {
@@ -15,16 +15,16 @@
         public static string Resolve(string type)
         {
             type = type.Trim();
-            if(BackTypes.ContainsKey(type))
+            if (BackTypes.ContainsKey(type))
             {
                 return BackTypes[type];
             }
-            if(type.Contains('*'))
+            if (type.Contains('*'))
             {
                 type = type.Replace("*", "");
                 return Resolve(type) + "*";
             }
-            if(type.EndsWith("]"))
+            if (type.EndsWith("]"))
             {
                 var index = type.IndexOf('[');
                 var arrSize = type.Substring(index + 1, type.Length - index - 2);

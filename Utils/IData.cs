@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace BackToBinding.Data
+namespace BackToBinding.Utils
 {
     public interface IData
     {

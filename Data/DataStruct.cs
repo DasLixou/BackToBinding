@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using BackToBinding.Data.Struct;
+using BackToBinding.Utils;
+using System.Text;
 
 namespace BackToBinding.Data
 {

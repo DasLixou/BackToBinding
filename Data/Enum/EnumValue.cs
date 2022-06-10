@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using BackToBinding.Utils;
+using System.Text;
 
-namespace BackToBinding.Data
+namespace BackToBinding.Data.Enum
 {
     internal class EnumValue : IData
     {
@@ -11,7 +12,7 @@ namespace BackToBinding.Data
         {
             builder.Indent(indent);
             builder.Append(Name);
-            if(Value != null)
+            if (Value != null)
             {
                 builder.Append(" = ");
                 builder.Append(Value);
