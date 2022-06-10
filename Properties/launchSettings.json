@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BackToBinding": {
+      "commandName": "Project",
+      "commandLineArgs": "-i raylib.h --mainName Raylib -o dist/"
+    }
+  }
+}
