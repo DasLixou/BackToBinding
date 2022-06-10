@@ -1,16 +1,29 @@
-﻿using BackToBinding.Data;
+﻿using BackToBinding;
+using BackToBinding.Data;
+using CommandLine;
+using Newtonsoft.Json;
 using System.Text;
 
-StringBuilder builder = new StringBuilder();
+public static class Program
+{
+    public static void Main(string[] args)
+    {
+        Parser.Default.ParseArguments<CommandContext>(args)
+              .WithParsed(context => {
+                  Translate(context);
+              });
+    }
 
-// debug
-var data = new DataStruct();
-data.Name = "Hello";
-var field = new TypeField();
-field.Name = "a";
-data.Fields.Add(field);
-// end
+    internal static void Translate(CommandContext ctx)
+    {
+        var target = JsonConvert.DeserializeObject<DataTarget>(File.ReadAllText(ctx.InputFilename));
 
-data.AsText(0, builder);
+        StringBuilder builder = new StringBuilder();
 
-File.WriteAllText("dist/Raylib.back", builder.ToString());
+        target.AsText(0, builder);
+
+        File.WriteAllText($"{ctx.OutputDirectory}/{ctx.MainName}.back", builder.ToString());
+    }
+}
+
+/**/
