@@ -21,8 +21,15 @@
             }
             if(type.Contains('*'))
             {
-                var without = type.Replace("*", "");
-                return Resolve(without) + "*";
+                type = type.Replace("*", "");
+                return Resolve(type) + "*";
+            }
+            if(type.EndsWith("]"))
+            {
+                var index = type.IndexOf('[');
+                var arrSize = type.Substring(index + 1, type.Length - index - 2);
+                type = type.Substring(0, index);
+                return Resolve(type) + "[" + arrSize + "]";
             }
             return type;
         }
