@@ -11,8 +11,11 @@ namespace BackToBinding.Data
         {
             builder.Indent(indent);
             builder.Append(Name);
-            builder.Append(" = ");
-            builder.Append(Value);
+            if(Value != null)
+            {
+                builder.Append(" = ");
+                builder.Append(Value);
+            }
             builder.Append(",");
             builder.Line();
         }
