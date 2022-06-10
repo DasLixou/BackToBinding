@@ -18,11 +18,9 @@ public static class Program
     {
         var target = JsonConvert.DeserializeObject<DataTarget>(File.ReadAllText(ctx.InputFilename));
 
-        StringBuilder builder = new StringBuilder();
+        Directory.CreateDirectory(ctx.OutputDirectory);
 
-        target.AsText(0, builder);
-
-        File.WriteAllText($"{ctx.OutputDirectory}/{ctx.MainName}.back", builder.ToString());
+        target.Translate(ctx.OutputDirectory);
     }
 }
 
