@@ -5,13 +5,41 @@
         private static Dictionary<string, string> BackTypes = new()
         {
             ["unsigned char"] = "u8",
+
             ["unsigned short"] = "u16",
+            ["unsigned short int"] = "u16",
+
+            ["unsigned"] = "u32",
             ["unsigned int"] = "u32",
-            ["char"] = "u8",
+
+            ["unsigned long"] = "u64",
+            ["unsigned long int"] = "u64",
+
+            ["char"] = "i8",
+            ["signed char"] = "i8",
+
+            ["short"] = "i16",
+            ["short int"] = "i16",
+            ["signed short"] = "i16",
+            ["signed short int"] = "i16",
+
             ["int"] = "i32",
+            ["signed"] = "i32",
+            ["signed int"] = "i32",
+
+            ["long"] = "i64",
+            ["long int"] = "i64",
+            ["signed long"] = "i64",
+            ["signed long int"] = "i64",
+
             ["float"] = "f32",
+
+            ["double"] = "f64",
+
             ["void"] = "none",
+
             ["bool"] = "bool",
+            ["_Bool"] = "bool",
         };
 
         private static List<string> RegisteredCustoms = new();
