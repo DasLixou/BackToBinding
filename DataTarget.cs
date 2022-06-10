@@ -8,12 +8,16 @@ namespace BackToBinding
     {
         private string _outputDir;
 
+        public List<DataAlias> Aliases { get; set; }
         public List<DataStruct> Structs { get; set; }
         public List<DataEnum> Enums { get; set; }
 
         public void Translate(string outputDir)
         {
+            Aliases.ForEach(alias => alias.Resolve());
+
             _outputDir = outputDir;
+
             Structs.ForEach(st => Write(st.Name, st));
             Enums.ForEach(e => Write(e.Name, e));
         }

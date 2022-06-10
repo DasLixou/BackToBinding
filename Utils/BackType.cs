@@ -2,7 +2,7 @@
 {
     public static class BackType
     {
-        private static Dictionary<string, string> BackTypes = new()
+        private static Dictionary<string, string> Aliases = new()
         {
             ["unsigned char"] = "u8",
 
@@ -49,9 +49,9 @@
         public static string Resolve(string type)
         {
             type = type.Trim();
-            if (BackTypes.ContainsKey(type))
+            if (Aliases.ContainsKey(type))
             {
-                return BackTypes[type];
+                return Aliases[type];
             }
             if (type.Contains('*'))
             {
@@ -79,6 +79,12 @@
         {
             RegisteredCustoms.Add(type);
             NotResolved.RemoveAll(_ => _ == type);
+        }
+
+        public static void AddAlias(string type, string name)
+        {
+            if (Aliases.ContainsKey(type)) return;
+            Aliases[name] = type;
         }
 
         public static List<string> NotResolvedTypes => NotResolved;
