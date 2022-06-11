@@ -1,5 +1,4 @@
 ﻿using BackToBinding;
-using BackToBinding.Data;
 using BackToBinding.Utils;
 using CommandLine;
 using Newtonsoft.Json;
@@ -21,7 +20,7 @@ public static class Program
 
         Directory.CreateDirectory(ctx.OutputDirectory);
 
-        target.Translate(ctx.OutputDirectory);
+        target.Translate(ctx.OutputDirectory, ctx.MainName);
 
         foreach (var type in BackType.NotResolvedTypes)
         {
