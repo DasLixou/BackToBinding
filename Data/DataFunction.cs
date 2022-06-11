@@ -22,7 +22,11 @@ namespace BackToBinding.Data
                 string[] prms = new string[Params.Count];
                 for (int i = 0; i < prms.Length; i++)
                 {
-                    prms[i] = Params[i].AsText();
+                    var p = Params[i];
+                    if(p.Type != "...")
+                    {
+                        prms[i] = Params[i].AsText();
+                    }
                 }
                 builder.Append(String.Join(", ", prms));
             }
