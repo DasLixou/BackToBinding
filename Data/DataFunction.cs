@@ -16,7 +16,17 @@ namespace BackToBinding.Data
             builder.Append("func ");
             builder.Append(Name);
             builder.Append("(");
-            // TODO: params
+
+            if(Params != null && Params.Any())
+            {
+                string[] prms = new string[Params.Count];
+                for (int i = 0; i < prms.Length; i++)
+                {
+                    prms[i] = Params[i].AsText();
+                }
+                builder.Append(String.Join(", ", prms));
+            }
+
             builder.Append(") extern -> ");
             builder.Append(BackType.Resolve(ReturnType));
             builder.Append(";");

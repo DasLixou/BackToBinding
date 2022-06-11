@@ -3,14 +3,14 @@ using System.Text;
 
 namespace BackToBinding.Data.Function
 {
-    internal class FunctionParameter : IData
+    internal class FunctionParameter
     {
         public string Name { get; set; }
         public string Type { get; set; }
 
-        public void AsText(int indent, StringBuilder builder)
+        public string AsText()
         {
-            throw new NotImplementedException();
+            return Name + ": " + BackType.Resolve(Type);
         }
     }
 }
