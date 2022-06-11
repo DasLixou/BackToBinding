@@ -46,24 +46,37 @@
 
         private static List<string> NotResolved = new();
 
-        public static string Resolve(string type)
+        public static (string, bool) Resolve(string type)
         {
             type = type.Trim();
             if (Aliases.ContainsKey(type))
             {
-                return Aliases[type];
+                return (Aliases[type], false);
             }
             if (type.Contains('*'))
             {
                 type = type.Replace("*", "");
-                return Resolve(type) + "*";
+                var result = Resolve(type);
+                result.Item1 += "*";
+                return result;
             }
             if (type.EndsWith("]"))
             {
                 var index = type.IndexOf('[');
                 var arrSize = type.Substring(index + 1, type.Length - index - 2);
                 type = type.Substring(0, index);
-                return Resolve(type) + "[" + arrSize + "]";
+
+                var result = Resolve(type);
+                result.Item1 += "[" + arrSize + "]";
+                return result;
+            }
+            if(type.StartsWith("const"))
+            {
+                type = type.Replace("const", "");
+
+                var result = Resolve(type);
+                result.Item2 = true;
+                return result;
             }
 
             // custom type
@@ -72,7 +85,7 @@
                 NotResolved.Add(type);
             }
 
-            return type;
+            return (type, false);
         }
 
         public static void Register(string type)

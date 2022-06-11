@@ -28,7 +28,7 @@ namespace BackToBinding.Data
             }
 
             builder.Append(") extern -> ");
-            builder.Append(BackType.Resolve(ReturnType));
+            builder.Append(BackType.Resolve(ReturnType).Item1);
             builder.Append(";");
             builder.Line();
         }

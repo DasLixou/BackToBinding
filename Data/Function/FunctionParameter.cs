@@ -10,7 +10,7 @@ namespace BackToBinding.Data.Function
 
         public string AsText()
         {
-            return Name + ": " + BackType.Resolve(Type);
+            return Name + ": " + BackType.Resolve(Type).Item1;
         }
     }
 }

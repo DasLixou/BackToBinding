@@ -10,13 +10,19 @@ namespace BackToBinding.Data.Struct
 
         public void AsText(int indent, StringBuilder builder)
         {
+            var type = BackType.Resolve(Type);
+
             builder.Indent(indent);
             builder.Append("let ");
+            if(!type.Item2) // negate const
+            {
+                builder.Append("mut ");
+            }
             builder.Append(Name);
             if(Type.Trim() != "")
             {
                 builder.Append(": ");
-                builder.Append(BackType.Resolve(Type));
+                builder.Append(type.Item1);
             }
             builder.Append(";");
             builder.Line();
