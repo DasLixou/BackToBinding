@@ -7,12 +7,18 @@ namespace BackToBinding.Data.Struct
     {
         public string Type { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
 
         public void AsText(int indent, StringBuilder builder)
         {
             var type = BackType.Resolve(Type);
 
             builder.Indent(indent);
+            if (Description != null)
+            {
+                builder.Documentate(indent, Description);
+                builder.Indent(indent);
+            }
             builder.Append("let ");
             if(!type.Item2) // negate const
             {
@@ -25,6 +31,7 @@ namespace BackToBinding.Data.Struct
                 builder.Append(type.Item1);
             }
             builder.Append(";");
+            builder.Line();
             builder.Line();
         }
     }

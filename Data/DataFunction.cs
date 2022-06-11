@@ -9,10 +9,16 @@ namespace BackToBinding.Data
         public string Name { get; set; }
         public string ReturnType { get; set; }
         public List<FunctionParameter> Params { get; set; }
+        public string Description { get; set; }
 
         public void AsText(int indent, StringBuilder builder)
         {
             builder.Indent(indent);
+            if(Description != null)
+            {
+                builder.Documentate(indent, Description);
+                builder.Indent(indent);
+            }
             builder.Append("func ");
             builder.Append(Name);
             builder.Append("(");
@@ -34,6 +40,7 @@ namespace BackToBinding.Data
             builder.Append(") extern -> ");
             builder.Append(BackType.Resolve(ReturnType).Item1);
             builder.Append(";");
+            builder.Line();
             builder.Line();
         }
     }
