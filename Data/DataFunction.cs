@@ -19,6 +19,10 @@ namespace BackToBinding.Data
                 builder.Documentate(indent, Description);
                 builder.Indent(indent);
             }
+            // ToDo: dont hardcode raylib
+            var dllName = "raylib";
+            builder.AppendLine($"@DllImport(\"{dllName}\", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true);");
+            builder.Indent(indent);
             builder.Append("func ");
             builder.Append(Name);
             builder.Append("(");
@@ -37,7 +41,7 @@ namespace BackToBinding.Data
                 builder.Append(String.Join(", ", prms));
             }
 
-            builder.Append(") static extern -> ");
+            builder.Append(") public static extern -> ");
             builder.Append(BackType.Resolve(ReturnType).Item1);
             builder.Append(";");
             builder.Line();
