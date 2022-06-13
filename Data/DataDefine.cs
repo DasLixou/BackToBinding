@@ -24,8 +24,7 @@ namespace BackToBinding.Data
         public void AsText(int indent, StringBuilder builder)
         {
             if (Type == "GUARD" || Type == "MACRO") return;
-            builder.Indent(indent);
-            var text = $"// ! INVALID TYPE '{Type}' IN VARIABLE '{Name}' WITH VALUE '{Value}' !";
+            string text = null;
             switch(Type)
             {
                 case "STRING":
@@ -75,6 +74,12 @@ namespace BackToBinding.Data
                         break;
                     }
             }
+            if(text == null)
+            {
+                Program.Messages.Add($"[WARNING] Invalid Type '{Type}' in Variable '{Name}' with Value '{Value}'");
+                return;
+            }
+            builder.Indent(indent);
             builder.AppendLine(text);
             builder.Line();
         }
