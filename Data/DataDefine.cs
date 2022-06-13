@@ -12,14 +12,18 @@ namespace BackToBinding.Data
         public string Type { get; set; }
         public string Value { get; set; }
 
-        public void AsText(int indent, StringBuilder builder)
+        public void Resolve()
         {
-            if (Type == "GUARD") return;
             if (Type == "MACRO")
             {
                 Macros.Add(new MacroDefinition(Name, Value));
                 return;
             }
+        }
+
+        public void AsText(int indent, StringBuilder builder)
+        {
+            if (Type == "GUARD" || Type == "MACRO") return;
             builder.Indent(indent);
             var text = $"// ! INVALID TYPE '{Type}' IN VARIABLE '{Name}' WITH VALUE '{Value}' !";
             switch(Type)
@@ -40,6 +44,16 @@ namespace BackToBinding.Data
                         // FOR DEBUGGING REASONS HARDCODED
                         var newValue = Macros.Find(_ => _.Name == "CLITERAL(type)").Resolve(Value);
                         text = $"let {Name} = {newValue};";
+                        break;
+                    }
+                case "UNKNOWN":
+                    {
+                        var enumClass = Program.target.Enums.FirstOrDefault(_ => _.Values.Any(entry => entry.Name == Value));
+                        if(enumClass != null)
+                        {
+                            var enumValue = enumClass.Values.Find(_ => _.Name == Value);
+                            text = $"let {Name}: {enumClass.Name} = {enumClass.Name}.{enumValue.Name};";
+                        }
                         break;
                     }
             }

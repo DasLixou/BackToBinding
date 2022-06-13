@@ -17,13 +17,14 @@ namespace BackToBinding
         public void Translate(string outputDir, string mainName)
         {
             Aliases.ForEach(alias => alias.Resolve());
+            Defines.ForEach(define => define.Resolve());
 
             _outputDir = outputDir;
 
-            CreateMainClass(mainName, Functions, Defines);
-
             Structs.ForEach(st => Write(st.Name, st));
             Enums.ForEach(e => Write(e.Name, e));
+
+            CreateMainClass(mainName, Functions, Defines);
         }
 
         public void CreateMainClass(string name, List<DataFunction> functions, List<DataDefine> defines)

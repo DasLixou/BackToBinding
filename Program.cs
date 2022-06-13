@@ -6,6 +6,8 @@ using System.Text;
 
 public static class Program
 {
+    internal static DataTarget target;
+
     public static void Main(string[] args)
     {
         Parser.Default.ParseArguments<CommandContext>(args)
@@ -16,7 +18,7 @@ public static class Program
 
     internal static void Translate(CommandContext ctx)
     {
-        var target = JsonConvert.DeserializeObject<DataTarget>(File.ReadAllText(ctx.InputFilename));
+        target = JsonConvert.DeserializeObject<DataTarget>(File.ReadAllText(ctx.InputFilename));
 
         Directory.CreateDirectory(ctx.OutputDirectory);
 
