@@ -39,13 +39,6 @@ namespace BackToBinding.Data
                         text = Float();
                         break;
                     }
-                case "COLOR":
-                    {
-                        // FOR DEBUGGING REASONS HARDCODED
-                        var newValue = Macros.Find(_ => _.Name == "CLITERAL(type)").Resolve(Value);
-                        text = $"let {Name} = {newValue};";
-                        break;
-                    }
                 case "UNKNOWN":
                     {
                         var enumClass = Program.target.Enums.FirstOrDefault(_ => _.Values.Any(entry => entry.Name == Value));
@@ -53,6 +46,31 @@ namespace BackToBinding.Data
                         {
                             var enumValue = enumClass.Values.Find(_ => _.Name == Value);
                             text = $"let {Name}: {enumClass.Name} = {enumClass.Name}.{enumValue.Name};";
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        var openParen = Value.IndexOf('(');
+                        var macroName = Value.Substring(0, openParen);
+                        var macro = Macros.FirstOrDefault(_ => _.StrippedName == macroName);
+                        if (macro != null)
+                        {
+                            var macroValue = macro.Resolve(Value);
+                            var closeParen = Value.IndexOf(')');
+                            if(closeParen != Value.Length - 1)
+                            {
+                                var appendValue = Value.Substring(closeParen + 1);
+                                if(appendValue.StartsWith("{"))
+                                {
+                                    // make constructor
+                                    var stringPrms = appendValue.Replace("{", "").Replace("}", "").Replace(" ", "");
+                                    var constructorPrms = stringPrms.Split(",");
+                                    appendValue = "::new(" + string.Join(", ", constructorPrms) + ")";
+                                }
+                                macroValue = macroValue + appendValue;
+                            }
+                            text = $"let {Name} = {macroValue};";
                         }
                         break;
                     }
