@@ -3,7 +3,7 @@ using System.Text;
 
 namespace BackToBinding.Data.Struct
 {
-    public class TypeField : IData
+    internal class TypeField : IData
     {
         public string Type { get; set; }
         public string Name { get; set; }

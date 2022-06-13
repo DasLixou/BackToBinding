@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BackToBinding.Data
 {
-    public class DataStruct : IData
+    internal class DataStruct : IData
     {
         public string Name { get; set; }
         public string Description { get; set; }
