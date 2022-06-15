@@ -78,9 +78,25 @@
                 result.Item2 = true;
                 return result;
             }
+            var callback = Program.target.Callbacks.FirstOrDefault(_ => _.Name == type);
+            if (callback != null)
+            {
+                var result = "(";
+
+                result += callback.ParameterText();
+
+                result += ")";
+
+                if(callback.ReturnType != null && callback.ReturnType != "void")
+                {
+                    result += " -> " + Resolve(callback.ReturnType).Item1;
+                }
+
+                return (result, false);
+            }
 
             // custom type
-            if(!RegisteredCustoms.Contains(type) && !NotResolved.Contains(type))
+            if (!RegisteredCustoms.Contains(type) && !NotResolved.Contains(type))
             {
                 NotResolved.Add(type);
             }

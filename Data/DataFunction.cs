@@ -23,29 +23,35 @@ namespace BackToBinding.Data
             var dllName = "raylib";
             builder.AppendLine($"@DllImport(\"{dllName}\", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true);");
             builder.Indent(indent);
-            builder.Append("func ");
+            builder.Append("public static extern func ");
             builder.Append(Name);
             builder.Append("(");
 
-            if(Params != null && Params.Any())
+            builder.Append(ParameterText());
+
+            builder.Append(") -> ");
+            builder.Append(BackType.Resolve(ReturnType).Item1);
+            builder.Append(";");
+            builder.Line();
+            builder.Line();
+        }
+
+        public string ParameterText()
+        {
+            if (Params != null && Params.Any())
             {
                 string[] prms = new string[Params.Count];
                 for (int i = 0; i < prms.Length; i++)
                 {
                     var p = Params[i];
-                    if(p.Type != "...")
+                    if (p.Type != "...")
                     {
                         prms[i] = Params[i].AsText();
                     }
                 }
-                builder.Append(String.Join(", ", prms));
+                return String.Join(", ", prms);
             }
-
-            builder.Append(") public static extern -> ");
-            builder.Append(BackType.Resolve(ReturnType).Item1);
-            builder.Append(";");
-            builder.Line();
-            builder.Line();
+            return "";
         }
     }
 }
