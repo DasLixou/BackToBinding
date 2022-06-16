@@ -20,7 +20,7 @@ namespace BackToBinding.Data
                 for (int i = 0; i < prms.Length; i++)
                 {
                     var p = Params[i];
-                    if (p.Type != "...")
+                    if (p.Type != "..." && p.Type != "va_list") // TODO: Replace with ... args when implemented
                     {
                         prms[i] = Params[i].AsText();
                     }
